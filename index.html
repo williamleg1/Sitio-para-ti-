@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#160b16">
+<title>Un boleto para ti ❤️</title>
+<style>
+:root{
+  --bg:#0f0810; --card:#1b101c; --soft:#2a1728; --pink:#ff7fa8;
+  --rose:#ff4f83; --cream:#fff7f1; --muted:#cdbbc5; --gold:#f4c97b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+  color:var(--cream); background:
+  radial-gradient(circle at 15% 10%,#4c1b3e 0,transparent 28%),
+  radial-gradient(circle at 85% 30%,#351229 0,transparent 30%),var(--bg);
+  overflow-x:hidden;
+}
+button{font:inherit}
+.screen{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:28px 18px}
+.container{width:min(940px,100%);margin:auto}
+.hero{text-align:center;position:relative}
+.kicker{letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-size:.72rem}
+h1{font-family:Georgia,serif;font-size:clamp(3rem,12vw,7rem);line-height:.9;margin:18px 0}
+.subtitle{color:var(--muted);font-size:1.05rem;max-width:560px;margin:0 auto 30px;line-height:1.65}
+.cta{
+  border:0;border-radius:999px;padding:15px 25px;background:linear-gradient(135deg,var(--rose),#ff9cbd);
+  color:white;font-weight:800;cursor:pointer;box-shadow:0 12px 35px #ff4f8335;transition:.25s;
+}
+.cta:hover{transform:translateY(-2px) scale(1.02)}
+.heart{position:fixed;font-size:18px;opacity:.7;animation:float 7s linear infinite;pointer-events:none}
+@keyframes float{from{transform:translateY(110vh) rotate(0);opacity:0}15%{opacity:.75}to{transform:translateY(-15vh) rotate(25deg);opacity:0}}
+.hidden{display:none!important}
+.ticket-wrap{padding:45px 0}
+.ticket{
+  background:linear-gradient(135deg,#fff8f3,#ffe9f0);color:#24131c;border-radius:26px;
+  padding:28px;position:relative;box-shadow:0 25px 70px #0008;overflow:hidden;
+}
+.ticket:before,.ticket:after{content:"";position:absolute;top:50%;width:28px;height:28px;border-radius:50%;background:var(--bg);transform:translateY(-50%)}
+.ticket:before{left:-15px}.ticket:after{right:-15px}
+.ticket-top{display:flex;justify-content:space-between;gap:15px;border-bottom:1px dashed #bda4ae;padding-bottom:20px}
+.ticket small{color:#826773}.ticket h2{font-family:Georgia,serif;font-size:2rem;margin:6px 0}
+.ticket-code{font-weight:900;letter-spacing:.12em;color:#d43e6c}
+.ticket-body{padding:24px 0}.ticket-title{font-size:1.5rem;font-weight:900}
+.ticket-note{color:#725a65;line-height:1.6}
+.stamp{display:inline-block;border:2px solid #e14b78;color:#d43e6c;padding:7px 12px;border-radius:8px;transform:rotate(-5deg);font-weight:900;font-size:.75rem}
+.section{padding:90px 0}.section h2{font-family:Georgia,serif;font-size:clamp(2.2rem,7vw,4.2rem);margin:0 0 12px}
+.section-intro{color:var(--muted);line-height:1.7;max-width:620px}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:28px}
+.photo{position:relative;border-radius:20px;overflow:hidden;background:#251525;min-height:250px;cursor:pointer}
+.photo:nth-child(1){grid-column:span 7}.photo:nth-child(2){grid-column:span 5}
+.photo:nth-child(3){grid-column:span 5}.photo:nth-child(4){grid-column:span 7}
+.photo:nth-child(5){grid-column:span 12;max-height:520px}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;transition:.5s}
+.photo:hover img{transform:scale(1.04)}
+.caption{position:absolute;left:0;right:0;bottom:0;padding:35px 18px 16px;background:linear-gradient(transparent,#000b);font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.card{
+  min-height:170px;border:1px solid #ffffff14;border-radius:22px;background:#ffffff08;
+  padding:22px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:.25s
+}
+.card:hover{transform:translateY(-4px);background:#ffffff10}
+.card .icon{font-size:2rem}.card p{color:var(--muted);line-height:1.5;margin:8px 0 0}
+.reveal{display:none;margin-top:14px;padding:14px;border-radius:14px;background:#0003;color:#ffe9f1}
+.card.open .reveal{display:block}
+.game{background:linear-gradient(135deg,#291329,#1b0e1c);border:1px solid #ffffff12;border-radius:28px;padding:28px;margin-top:30px}
+.hearts{display:flex;gap:16px;flex-wrap:wrap;margin-top:22px}
+.heart-btn{width:64px;height:64px;border:0;border-radius:50%;background:#ffffff0d;color:#ff82a8;font-size:2rem;cursor:pointer;transition:.2s}
+.heart-btn:hover{transform:scale(1.1)}
+.heart-btn.found{background:#ff4f8330;box-shadow:0 0 0 2px #ff7fa8}
+.letter{background:#fff7f1;color:#2a1720;border-radius:24px;padding:30px;box-shadow:0 25px 60px #0006}
+.letter h3{font-family:Georgia,serif;font-size:2rem;margin-top:0}.letter p{line-height:1.9}
+.signature{font-family:cursive;font-size:1.6rem;color:#d84370;margin-top:25px}
+.footer{text-align:center;padding:40px 18px 70px;color:#9d8792}
+.modal{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;padding:18px;z-index:20}
+.modal img{max-width:min(92vw,850px);max-height:88vh;border-radius:20px;object-fit:contain}
+.close{position:fixed;top:18px;right:18px;border:0;border-radius:50%;width:44px;height:44px;background:#fff;color:#222;font-size:1.3rem;cursor:pointer}
+@media(max-width:700px){
+  .gallery{display:grid;grid-template-columns:1fr 1fr}
+  .photo:nth-child(n){grid-column:span 1;min-height:250px}
+  .photo:nth-child(5){grid-column:span 2}
+  .cards{grid-template-columns:1fr}
+  .ticket-top{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div id="hearts"></div>
+
+<section class="screen" id="inicio">
+  <div class="container hero">
+    <div class="kicker">Un pequeño regalo digital</div>
+    <h1>Para ti<br>❤️</h1>
+    <p class="subtitle">Hay sitios que te llevan a un lugar… y otros que te llevan a un recuerdo. Este es para nosotros.</p>
+    <button class="cta" onclick="document.getElementById('boleto').scrollIntoView({behavior:'smooth'})">Abrir mi Sitio ✨</button>
+  </div>
+</section>
+
+<section class="section" id="boleto">
+  <div class="container ticket-wrap">
+    <div class="ticket">
+      <div class="ticket-top">
+        <div><small>SITIO ESPECIAL</small><h2>Una cena para dos</h2></div>
+        <div class="stamp">VÁLIDO ❤️</div>
+      </div>
+      <div class="ticket-body">
+        <div class="ticket-title">Invitados: Tú + Yo</div>
+        <p class="ticket-note">Destino: una noche para desconectarnos del mundo, comer rico, reírnos y seguir llenando nuestra historia de momentos que valgan la pena.</p>
+      </div>
+      <div style="display:flex;justify-content:space-between;gap:15px;align-items:end">
+        <div><small>CÓDIGO</small><div class="ticket-code">TU-YO-∞</div></div>
+        <button class="cta" onclick="document.getElementById('recuerdos').scrollIntoView({behavior:'smooth'})">Continuar ❤️</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="recuerdos">
+  <div class="container">
+    <div class="kicker">Capítulo 01</div>
+    <h2>Nuestros momentos</h2>
+    <p class="section-intro">No escogí estas fotos porque sean perfectas. Las escogí porque en cada una hay una versión de nosotros que quiero seguir recordando.</p>
+    <div class="gallery">
+      <div class="photo" onclick="openImg(1)"><img src="assets/foto1.jpeg"><div class="caption">Nosotros, en nuestra ultima salida 🏍️</div></div>
+      <div class="photo" onclick="openImg(2)"><img src="assets/foto2.jpeg"><div class="caption">Hasta las mascarillas las disfrutan contigo 😂</div></div>
+      <div class="photo" onclick="openImg(3)"><img src="assets/foto3.jpeg"><div class="caption">Mil veces SI 🌊</div></div>
+      <div class="photo" onclick="openImg(4)"><img src="assets/foto4.jpeg"><div class="caption">Nuestra Primera Salida ✨</div></div>
+      <div class="photo" onclick="openImg(5)"><img src="assets/foto5.jpeg"><div class="caption">Y también somos ese equipo que entrena junto 💪❤️</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="kicker">Capítulo 02</div>
+    <h2>Lo que trae este Sitio</h2>
+    <p class="section-intro">Porque una cena u/o Salida está bien… pero una noche con detalles está mucho mejor.</p>
+    <div class="cards">
+      <div class="card" onclick="this.classList.toggle('open')"><div class="icon">🍽️</div><div><b>Cena para dos</b><p>Sin celulares, sin afán y con tiempo para nosotros.</p><div class="reveal">Prometo que esta parte sí la voy a cumplir. 😌</div></div></div>
+      <div class="card" onclick="this.classList.toggle('open')"><div class="icon">🎁</div><div><b>Una sorpresa</b><p>Porque siempre hay espacio para algo que no te esperabas.</p><div class="reveal">Pista: no termina en esta pantalla… 👀</div></div></div>
+      <div class="card" onclick="this.classList.toggle('open')"><div class="icon">💋</div><div><b>Besos ilimitados</b><p>Válidos durante toda la noche. Sin fecha de vencimiento.</p><div class="reveal">Cláusula pequeña: tú también tienes que poner de tu parte. 😂❤️</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="kicker">Capítulo 03</div>
+    <h2>Encuentra la sorpresa</h2>
+    <p class="section-intro">Hay tres corazones escondidos. Toca los que encuentres.</p>
+    <div class="game">
+      <b id="gameText">0 de 3 corazones encontrados ❤️</b>
+      <div class="hearts">
+        <button class="heart-btn" data-heart="1">♡</button>
+        <button class="heart-btn" data-heart="2">♡</button>
+        <button class="heart-btn" data-heart="3">♡</button>
+        <button class="heart-btn" data-heart="4">♡</button>
+        <button class="heart-btn" data-heart="5">♡</button>
+        <button class="heart-btn" data-heart="6">♡</button>
+      </div>
+      <div id="reward" class="hidden" style="margin-top:24px">
+        <div class="letter">
+          <h3>Encontraste la sorpresa. 💌</h3>
+          <p>Si llegaste hasta aquí, quiero que sepas algo muy sencillo: me encanta compartir mi vida contigo. Me encantan nuestras fotos, nuestras bobadas, nuestras salidas, entrenar juntos, reírnos y hasta esos momentos que parecen pequeños pero que terminan siendo mis favoritos.</p>
+          <p>Este Sitio es solo una excusa para recordarte que quiero seguir creando muchos más recuerdos contigo.</p>
+          <p><b>Y ahora sí… esta Salida queda oficialmente pendiente de ser canjeada. ❤️</b></p>
+          <div class="signature">Con amor,<br>tu Esposito ❤️✨😌</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="kicker">Última página</div>
+    <h2>Una cosa más…</h2>
+    <div class="letter">
+      <h3>Para la persona que recibió este sitio ❤️</h3>
+      <p>Gracias por todos esos momentos que hacen que una foto sea mucho más que una foto.</p>
+      <p>Ojalá podamos mirar atrás algún día y encontrar cientos de recuerdos como estos: viajes, cenas, días normales, días increíbles y hasta días en los que no sabíamos qué hacer… pero estábamos juntos.</p>
+      <p>Así que guarda este boleto. No porque sea digital, sino porque representa una promesa sencilla: <b>seguir escogiendo momentos contigo.</b></p>
+      <div class="signature">❤️ Siempre nosotros</div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">Hecho con ❤️ especialmente para ti.</div>
+
+<div id="modal" class="modal hidden" onclick="closeImg()">
+  <button class="close" onclick="closeImg()">×</button>
+  <img id="modalImg" src="" alt="Recuerdo">
+</div>
+
+<script>
+const hearts = document.getElementById('hearts');
+for(let i=0;i<18;i++){
+  const h=document.createElement('span');
+  h.className='heart'; h.textContent=['♥','♡','✦'][i%3];
+  h.style.left=(Math.random()*100)+'vw';
+  h.style.animationDelay=(Math.random()*7)+'s';
+  h.style.animationDuration=(5+Math.random()*5)+'s';
+  hearts.appendChild(h);
+}
+
+const winning=[1,3,6];
+let found=0;
+document.querySelectorAll('.heart-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const n=Number(btn.dataset.heart);
+    if(btn.classList.contains('found')) return;
+    if(winning.includes(n)){
+      btn.classList.add('found'); btn.textContent='♥'; found++;
+      document.getElementById('gameText').textContent=`${found} de 3 corazones encontrados ❤️`;
+      if(found===3){
+        document.getElementById('reward').classList.remove('hidden');
+        document.getElementById('reward').scrollIntoView({behavior:'smooth',block:'center'});
+        for(let i=0;i<20;i++) setTimeout(()=>spawnConfetti(),i*45);
+      }
+    } else {
+      btn.animate([{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:250});
+    }
+  });
+});
+function spawnConfetti(){
+  const e=document.createElement('span'); e.textContent=['❤️','✨','💗','🌹'][Math.floor(Math.random()*4)];
+  e.style.position='fixed'; e.style.left=(20+Math.random()*60)+'vw'; e.style.top='40vh';
+  e.style.fontSize=(15+Math.random()*20)+'px'; e.style.zIndex=30; e.style.transition='transform 1.2s, opacity 1.2s';
+  document.body.appendChild(e);
+  requestAnimationFrame(()=>{e.style.transform=`translate(${(Math.random()-.5)*300}px, ${200+Math.random()*350}px) rotate(${Math.random()*360}deg)`;e.style.opacity='0'});
+  setTimeout(()=>e.remove(),1400);
+}
+function openImg(n){
+  document.getElementById('modalImg').src=`assets/foto${n}.jpeg`;
+  document.getElementById('modal').classList.remove('hidden');
+}
+function closeImg(){document.getElementById('modal').classList.add('hidden')}
+</script>
+</body>
+</html>
